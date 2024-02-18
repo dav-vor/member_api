@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tag;
+use App\Models\MemberTag;
 use Illuminate\Database\Seeder;
 
 class MembersSeeder extends Seeder
@@ -12,7 +12,7 @@ class MembersSeeder extends Seeder
      */
     public function run(): void
     {
-        Tag::factory()->count(5)->create();
+        MemberTag::factory()->count(5)->create();
 
         $members = array(
             array(
@@ -50,8 +50,8 @@ class MembersSeeder extends Seeder
         foreach ($members as $member) {
             $newMember = \App\Models\Member::factory()
                 ->create($member);
-            $tags = Tag::inRandomOrder()->limit(rand(0, 3))->get();
-            $newMember->tags()->attach($tags);
+            $tags = MemberTag::inRandomOrder()->limit(rand(0, 3))->get();
+            $newMember->memberTags()->attach($tags);
         }
     }
 }

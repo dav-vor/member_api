@@ -20,7 +20,7 @@ class ShowMemberParameter extends ParametersFactory
                 ->required(true)
                 ->schema(Schema::integer()),
             Parameter::query()
-                ->name('tags')
+                ->name('member_tags')
                 ->description("Use '1' to include tag names in the response")
                 ->required(false)
                 ->schema(Schema::string()),

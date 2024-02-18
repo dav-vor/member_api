@@ -30,9 +30,9 @@ class Member extends Model
         'email' => 'unique:members'
     ];
 
-    public function tags(): BelongsToMany
+    public function memberTags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(MemberTag::class);
     }
 
     /**

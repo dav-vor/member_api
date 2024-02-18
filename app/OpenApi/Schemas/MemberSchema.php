@@ -18,8 +18,8 @@ class MemberSchema extends SchemaFactory implements Reusable
                 Schema::string('last_name'),
                 Schema::string('email'),
                 Schema::string('birth_date'),
-                Schema::array('tags')
-                    ->description('Tag IDs')
+                Schema::array('member_tags')
+                    ->description('Member tags IDs')
                     ->items(Schema::integer())
             );
     }

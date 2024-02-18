@@ -35,8 +35,8 @@ class MemberRepository
     {
         $member = Member::create($data);
 
-        if (key_exists('tags', $data)) {
-            $member->tags()->attach($data['tags']);
+        if (key_exists('member_tags', $data)) {
+            $member->tags()->attach($data['member_tags']);
         }
 
         return $member;
@@ -56,11 +56,11 @@ class MemberRepository
 
         $member->update($data);
 
-        if (key_exists('tags', $data)) {
-            if (empty($data['tags'])) {
-                $member->tags()->detach();
+        if (key_exists('member_tags', $data)) {
+            if (empty($data['member_tags'])) {
+                $member->memberTags()->detach();
             } else {
-                $member->tags()->sync($data['tags']);
+                $member->memberTags()->sync($data['member_tags']);
             }
         }
 

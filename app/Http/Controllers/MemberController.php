@@ -32,14 +32,14 @@ class MemberController extends Controller
     public function show(Request $request, $id)
     {
         try {
-            $tag = $request->input('tags');
+            $tag = $request->input('member_tags');
             $id = (int)$id;
 
             $member = $this->memberRepository->findById($id);
             $data = $member->toArray();
 
             if (!empty($tag) && $tag === '1') {
-                $data['tags'] = $member->tags()->pluck('name')->toArray();
+                $data['member_tags'] = $member->memberTags()->pluck('name')->toArray();
             }
 
             return response()->json($data);
@@ -93,7 +93,7 @@ class MemberController extends Controller
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique:members',
                 'birth_date' => 'required|date',
-                'tags.*' => 'integer'
+                'member_tags.*' => 'integer'
             ]);
 
             $member = $this->memberRepository->create($validatedData);
@@ -132,8 +132,8 @@ class MemberController extends Controller
                 'last_name' => 'string|max:255',
                 'email' => 'email|max:255',
                 'birth_date' => 'date',
-                'tags' => 'nullable|array',
-                'tags.*' => 'integer'
+                'member_tags' => 'nullable|array',
+                'member_tags.*' => 'integer'
             ]);
 
             $member = $this->memberRepository->update($id, $validatedData);
@@ -142,7 +142,6 @@ class MemberController extends Controller
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => 'An error occurred while attempting to update member.',
-
                 'error' => $e->getMessage(),
                 'errors' => $e->errors(),
             ], 422);
